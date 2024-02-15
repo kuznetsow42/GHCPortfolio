@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     #thrid-party
     'channels',
+    'rest_framework',
 
     #ghcp
     'core.apps.CoreConfig',
