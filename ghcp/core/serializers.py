@@ -4,12 +4,17 @@ from .models import Bio, Skill, Language
 
 
 class LanguageListSerializer(serializers.ModelSerializer):
+    speaking = serializers.CharField(source="get_speaking_display")
+    reading = serializers.CharField(source="get_reading_display")
+
     class Meta:
         model = Language
         fields = "__all__"
 
 
 class SkillListSerializer(serializers.ModelSerializer):
+    level = serializers.CharField(source="get_level_display")
+
     class Meta:
         model = Skill
         fields = "__all__"
