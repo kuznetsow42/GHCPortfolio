@@ -1,4 +1,8 @@
+from datetime import date
+from django.utils import timezone
 from django.db import models
+from django.db.models import F
+from django.db.models.functions import ExtractYear, ExtractMonth, ExtractDay
 
 PROFICIENCY_LEVELS = {
     "b": "Beginner",
@@ -6,10 +10,8 @@ PROFICIENCY_LEVELS = {
     "a": "Advanced"
 }
 
-
 class SkillBase(models.Model):
     name = models.CharField(max_length=30)
-    icon = models.ImageField(upload_to="icons/")
     description = models.TextField()
 
     def __str__(self) -> str:
@@ -19,24 +21,30 @@ class SkillBase(models.Model):
         abstract = True
 
 
-class SkillCategory(models.Model):
-    name = models.CharField(max_length=30)
-
-    def __str__(self) -> str:
-        return self.name
-    
-    class Meta:
-        verbose_name_plural = "Skill Categories"
-
-
 class Language(SkillBase):
     reading = models.CharField(max_length=1, choices=PROFICIENCY_LEVELS)
     speaking = models.CharField(max_length=1, choices=PROFICIENCY_LEVELS)
+    icon = models.ImageField(upload_to="icons/")
 
 
-class Skill(SkillBase):
+class HardSkill(SkillBase):
+    icon = models.ImageField(upload_to="icons/")
     level = models.CharField(choices=PROFICIENCY_LEVELS)
-    category = models.ForeignKey(SkillCategory, on_delete=models.CASCADE)
+
+
+class SoftSkillStory(models.Model):
+    image = models.ImageField(upload_to="team/")
+    text = models.TextField()
+
+    def __str__(self) -> str:
+        return self.text
+    
+    class Meta:
+        verbose_name_plural = "Soft skills stories"
+
+
+class SoftSkill(SkillBase):
+    stories = models.ManyToManyField(SoftSkillStory, "soft_skills", blank=True)
     
 
 class Bio(models.Model):
