@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 
     #ghcp
     'core.apps.CoreConfig',
+    'projects.apps.ProjectsConfig',
 ]
 
 MIDDLEWARE = [

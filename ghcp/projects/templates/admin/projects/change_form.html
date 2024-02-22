@@ -1,0 +1,26 @@
+{% extends "admin/change_form.html" %}
+
+{% block field_sets %}
+{% for fieldset in adminform %}
+  {% include "admin/includes/fieldset.html" %}
+{% endfor %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const project = document.querySelector('#id_project');
+        function selectTool (language) {
+            for (const tool of document.querySelectorAll('#id_tools option')) {
+                if (language === tool.innerText) tool.setAttribute('selected', 'selected');
+        }};
+
+        project.addEventListener('change', function(e) {
+            selectedProject = JSON.parse(e.target.value);
+            document.querySelector('#id_description').value = selectedProject.description;
+            document.querySelector("#id_link").value = selectedProject.url;
+            document.querySelector("#id_demo").value = selectedProject.homepage;
+            document.querySelector("#id_name").value = selectedProject.name;
+            selectTool(selectedProject.language);
+            document.querySelector("#id_created_at").value = selectedProject.created_at;
+        });
+    });
+</script>
+{% endblock %}
