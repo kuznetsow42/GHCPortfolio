@@ -15,7 +15,7 @@
         project.addEventListener('change', function(e) {
             selectedProject = JSON.parse(e.target.value);
             document.querySelector('#id_description').value = selectedProject.description;
-            document.querySelector("#id_link").value = selectedProject.url;
+            document.querySelector("#id_link").value = selectedProject.html_url;
             document.querySelector("#id_demo").value = selectedProject.homepage;
             document.querySelector("#id_name").value = selectedProject.name;
             selectTool(selectedProject.language);
