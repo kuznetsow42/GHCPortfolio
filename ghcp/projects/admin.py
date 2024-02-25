@@ -18,7 +18,7 @@ class ProForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ["project", "pet", "name", "link", "demo", "tools", "description", "created_at"]
+        fields = ["pet", "project", "image", "name", "link", "demo", "tools", "description", "created_at"]
 
 
 
