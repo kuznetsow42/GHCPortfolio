@@ -18,7 +18,7 @@ class Chat(models.Model):
 class Message(models.Model):
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name="messages")
     is_reply = models.BooleanField(default=False)
-    is_readed = models.BooleanField()
+    is_readed = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
     message = models.TextField(null=True, blank=True)
     attachment = models.FileField(upload_to=get_file_path, blank=True)
