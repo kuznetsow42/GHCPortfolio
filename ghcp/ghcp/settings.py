@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     #ghcp
     'core.apps.CoreConfig',
     'projects.apps.ProjectsConfig',
+    'chat.apps.ChatConfig',
 ]
 
 MIDDLEWARE = [
