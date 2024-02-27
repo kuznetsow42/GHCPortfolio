@@ -20,8 +20,8 @@ class Message(models.Model):
     is_reply = models.BooleanField(default=False)
     is_readed = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
-    message = models.TextField(null=True, blank=True)
+    text = models.TextField(null=True, blank=True)
     attachment = models.FileField(upload_to=get_file_path, blank=True)
 
     def __str__(self) -> str:
-        return self.message or "ATTACHMENT"
+        return self.text or "ATTACHMENT"
