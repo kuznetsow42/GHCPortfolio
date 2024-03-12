@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import Bio, SoftSkill, Language, HardSkill
 
 
@@ -45,3 +45,13 @@ class BasicsListSerializer(serializers.ModelSerializer):
     def get_languages(self, obj):
         return LanguageListSerializer(Language.objects.all(), many=True, context=self.context).data
         
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        if user.is_staff:
+            token["admin"] = True
+        else:
+            token["admin"] = False
+        return token
