@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Bio, SoftSkill, Language, HardSkill
+from .models import Bio, SoftSkill, Language, HardSkill, Link
 
 
 class LanguageListSerializer(serializers.ModelSerializer):
@@ -19,6 +19,12 @@ class SoftSkillSerializer(serializers.ModelSerializer):
         depth = 1
 
 
+class LinkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Link
+        fields = "__all__"
+
+
 class HardSkillSerializer(serializers.ModelSerializer):
     level = serializers.CharField(source="get_level_display")
 
@@ -31,6 +37,7 @@ class BasicsListSerializer(serializers.ModelSerializer):
     soft_skills = serializers.SerializerMethodField()
     hard_skills = serializers.SerializerMethodField()
     languages = serializers.SerializerMethodField()
+    links = serializers.SerializerMethodField()
 
     class Meta:
         model = Bio
@@ -44,6 +51,9 @@ class BasicsListSerializer(serializers.ModelSerializer):
     
     def get_languages(self, obj):
         return LanguageListSerializer(Language.objects.all(), many=True, context=self.context).data
+    
+    def get_links(self, obj):
+        return LinkSerializer(Link.objects.all(), many=True, context=self.context).data
         
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):

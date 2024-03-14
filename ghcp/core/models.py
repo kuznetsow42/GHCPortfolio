@@ -47,7 +47,17 @@ class SoftSkill(SkillBase):
     stories = models.ManyToManyField(SoftSkillStory, "soft_skills", blank=True)
     
 
+class Link(models.Model):
+    name = models.CharField(max_length=15)
+    url = models.CharField(max_length=100)
+    icon = models.ImageField(upload_to="icons/")
+
+    def __str__(self) -> str:
+        return self.name
+
+
 class Bio(models.Model):
+    resume = models.FileField(upload_to="files/")
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     phone = models.CharField(max_length=30)
